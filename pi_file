@@ -2,3 +2,10 @@ tftp
 dhcpd.conf
 isc-dhcp-server
 interfaces
+delete
+firmwares
+junos-configurator.slax
+interface-desc-update-lldp.slax
+set_trunk_offset.slax
+tcam-pct-used.slax
+disable_sfp_diag.slax
