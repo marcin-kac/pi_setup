@@ -1,0 +1,15 @@
+sudo apt-get update --allow-releaseinfo-change
+sudo apt-get upgrade -y
+sudo apt-get install isc-dhcp-server lighttpd xinetd tftpd tftp vim ntp  -y
+sudo cp tftp /etc/xinetd.d/
+sudo cp isc-dhcp-server /etc/default/
+sudo cp interfaces /etc/network/
+sudo cp /etc/dhcp/dhcpd.conf /etc/dhcp/dhcpd.conf.bk
+sudo cp dhcpd.conf /etc/dhcp/dhcpd.conf
+sudo service isc-dhcp-server restart
+sudo service xinetd restart
+sudo ifup eth0
+sudo chown -R www-data:www-data /var/www
+sudo service lighttpd restart
+rm interfaces isc-dhcp-server tftp dhcpd.conf
+sudo reboot
