@@ -1,0 +1,22 @@
+# No whitespaces between comma separated items
+# You can specify multiple entries, so different upgrades will be performed
+#
+# NOTE: Only one firmware version per major junos release will be used
+# In case of more than one version per major junos release, only the first
+# will be used. In the example below version 18.4R3.3 will be skipped
+
+# <Model,junos_firmware>
+# Model is given by the command "show version | match Model"
+#test
+vqfx-10000,jinstall-host-qfx-10k-flex-x86-64-19.4R1.10-secure-signed.tgz
+# EX4300
+ex4300-48p,jinstall-ex-4300-14.1X53-D35.3-domestic-signed.tgz
+# QFX5100
+qfx5100-48s-6q,jinstall-qfx-5-flex-14.1X53-D28.17-domestic-signed.tgz
+# EX2300
+ex2300,junos-arm-32-15.1X53-D59.3.tgz
+# SRX1500
+srx1500,junos-srxentedge-15.1X49-D140.3-domestic.tgz
+# QFX5100-96
+qfx5100-96s-8q,jinstall-qfx-5-flex-14.1X53-D28.17-domestic-signed.tgz
+

@@ -1,0 +1,53 @@
+/* source: https://code.amazon.com/packages/JDAM/blobs/mainline/--/edge.root.event-options.event-script/tcam-pct-used.slax */
+version 1.1;
+ 
+ns junos = "http://xml.juniper.net/junos/*/junos";
+ns xnm = "http://xml.juniper.net/xnm/1.1/xnm";
+ns jcs = "http://xml.juniper.net/junos/commit-scripts/1.0";
+ns ext = "http://xmlsoft.org/XSLT/namespace";
+ 
+/* Embedded event policy */
+var $event-definition = {
+        <event-options> {
+                <generate-event> {
+                        <name> "tcam-pct-used";
+                        <time-interval> "300";
+                }
+                <policy> {
+                        <name> "tcam-pct-used";
+                        <events> "tcam-pct-used";
+                        <then> {
+                                <event-script> {
+                                        <name> "tcam-pct-used.slax";
+                        }
+                        }
+                }
+        }
+}
+ 
+match / {
+    <event-script-results> {
+        var $cmd = <command> "request pfe execute command \"show filter hw groups\" target fpc0";
+        var $out = jcs:invoke($cmd);
+        var $lines = jcs:break_lines($out);
+ 
+        mvar $result = 0;
+        var $pattern = "Entries: +([0-9]+) +Max Entries: +([0-9]+)";
+        mvar $split;
+ 
+        for-each ($lines) {
+            if (contains(., "iRACL group")) {
+                set $split = jcs:regex($pattern, .);
+                set $result = $split[2] div $split[3] * 100;
+            }
+        }
+ 
+        var $rpc = <request-snmp-utility-mib-set> {
+            <object-type> "integer";
+            <instance> "tcam-pct-used";
+            <object-value> $result;
+        }
+ 
+        var $res = jcs:invoke($rpc);
+    }
+}
