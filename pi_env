@@ -1,6 +1,9 @@
 sudo apt-get update --allow-releaseinfo-change
 sudo apt-get upgrade -y
 sudo apt-get install isc-dhcp-server lighttpd xinetd tftpd tftp vim ntp  -y
+sudo apt-get install php7.4-fpm php7.4-mbstring php7.4-mysql php7.4-curl php7.4-gd php7.4-curl php7.4-zip php7.4-xml -y
+sudo lighttpd-enable-mod fastcgi
+sudo lighttpd-enable-mod fastcgi-php
 sudo mkdir /var/www/html/cfg
 sudo mkdir /var/www/html/images
 sudo mkdir /var/www/html/scripts
@@ -16,10 +19,14 @@ sudo cp  interface-desc-update-lldp.slax /var/www/html/scripts/
 sudo cp  set_trunk_offset.slax /var/www/html/scripts/
 sudo cp  tcam-pct-used.slax /var/www/html/scripts/
 sudo cp  disable_sfp_diag.slax /var/www/html/scripts/
+sudo cp 15-fastcgi-php.conf  /etc/lighttpd/conf-available/15-fastcgi-php.conf
+sudo cp upload.php /var/www/html
+sudo cp index.html /var/www/html
+sudo rm /var/www/html/index.lighttpd.html
 sudo chown -R www-data:www-data /var/www
 sudo ifup eth0
 sudo service isc-dhcp-server restart
 sudo service xinetd restart
-sudo service lighttpd restart
+sudo service lighttpd force-reload
 rm interfaces isc-dhcp-server tftp dhcpd.conf *.slax delete firmwares
 sudo reboot

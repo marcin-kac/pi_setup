@@ -40,7 +40,7 @@ var $HOSTNAME-DONE = "Juniper";
 /* Name of the file that contains tuples <Junos_model,Junos_firmware_file> */
 var $SERVER-URL = $SERVER _ "/firmwares";
 /* Location of all Junos files */
-var $JUNOS-URL = $SERVER _ "/images";
+var $JUNOS-URL = $SERVER _ "/cfg";
 var $PACK-URL = $SERVER _ "/package"; 
 var $INVENTORY-URL = $SERVER _ "/cfg/inventory";
 /* ========================================== */
