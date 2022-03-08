@@ -8,8 +8,8 @@ port = 22
 parser = argparse.ArgumentParser()
 parser.add_argument('-u','--username',type=str,dest="username",help='provide username')
 parser.add_argument('-a','--address',type=str,dest="ip_address",help='ip_address of host to configure')
-parser.add_argument('-c','--command',type=str,dest="cmd_list_file",help='ip_address of host to configure')
-parser.add_argument('-lf','--local_file',type=str,dest="local_file_list",help='ip_address of host to configure')
+parser.add_argument('-c','--command',type=str,dest="cmd_list_file",help='command file to run on remote host ')
+parser.add_argument('-f','--local_file',type=str,dest="local_file_list",help='file with remote command to executed on remote host ')
 
 args = parser.parse_args()
 

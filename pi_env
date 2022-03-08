@@ -1,6 +1,9 @@
 sudo apt-get update --allow-releaseinfo-change
 sudo apt-get upgrade -y
 sudo apt-get install isc-dhcp-server lighttpd xinetd tftpd tftp vim ntp  -y
+sudo mkdir /var/www/html/cfg
+sudo mkdir /var/www/html/images
+sudo mkdir /var/www/html/scripts
 sudo cp tftp /etc/xinetd.d/
 sudo cp isc-dhcp-server /etc/default/
 sudo cp interfaces /etc/network/
@@ -9,17 +12,14 @@ sudo cp dhcpd.conf /etc/dhcp/dhcpd.conf
 sudo cp delete /var/www/html/
 sudo cp junos-configurator.slax /var/www/html/
 sudo cp firmwares /var/www/html/
-sudo mkdir /var/www/html/cfg
-sudo mkdir /var/www/html/images
-sudo mkdir /var/www/html/scripts
 sudo cp  interface-desc-update-lldp.slax /var/www/html/scripts/
 sudo cp  set_trunk_offset.slax /var/www/html/scripts/
 sudo cp  tcam-pct-used.slax /var/www/html/scripts/
 sudo cp  disable_sfp_diag.slax /var/www/html/scripts/
+sudo chown -R www-data:www-data /var/www
+sudo ifup eth0
 sudo service isc-dhcp-server restart
 sudo service xinetd restart
-sudo ifup eth0
-sudo chown -R www-data:www-data /var/www
 sudo service lighttpd restart
-rm interfaces isc-dhcp-server tftp dhcpd.conf
+rm interfaces isc-dhcp-server tftp dhcpd.conf *.slax delete firmwares
 sudo reboot
