@@ -1,0 +1,110 @@
+/*
+ * License       : BSD-Style
+ *  Copyright (c) 2015 Chris Tripp. All Rights Reserved.
+ *  Redistribution and use in source and binary forms, with or without modification,
+ *  are permitted provided that the following conditions are met:
+ *  1. Redistributions of source code must retain the above copyright notice, this
+ *  list of conditions and the following disclaimer.
+ *  2. Redistributions in binary form must reproduce the above copyright notice,
+ *  this list of conditions and the following disclaimer in the documentation and/or
+ *  other materials provided with the distribution.
+ *  3. The name of the author may not be used to endorse or promote products derived
+ *  from this software without specific prior written permission.
+ *  THIS SOFTWARE IS PROVIDED BY THE AUTHOR "AS IS" AND ANY EXPRESS OR IMPLIED
+  *  WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY
+  *  AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE AUTHOR BE
+  *  LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+  *  DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+  *  LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+  *  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+  *  NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
+  *  IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * Original Author : Chris Tripp
+ * Modified by     : Daniel Lin
+ * Version         : 1.0
+ * Last Modified   : Jan 06 2016
+ *
+ * To enable:
+ * 1. Save to /var/db/scripts/event
+ * 2. Configure:
+ *
+ *event-options {
+ *    event-script {
+ *        file disable_sfp_diag.slax;
+ *    }
+ *}
+ */
+
+ version 1.0;
+
+ ns junos = "http://xml.juniper.net/junos/*/junos";
+ ns xnm = "http://xml.juniper.net/xnm/1.1/xnm";
+ ns jcs = "http://xml.juniper.net/junos/commit-scripts/1.0";
+ ns ext = "http://xmlsoft.org/XSLT/namespace";
+ import "../import/junos.xsl";
+
+ var $event-definition = {
+     <event-options> {
+        <generate-event> {
+             <name> "EVERYDAY";
+             <time-of-day> "08:00:00 +0000";
+             }
+         <policy> {
+             <name> "DISABLE_SFP_DIAG_FPC0";
+             <events> "PIC";
+             <within> {
+              <name> "30";
+              <trigger> {
+                <on>;
+                <count> "1";
+              }
+             }
+             <attributes-match> {
+                 <from-event-attribute> "PIC.message";
+                 <condition> "matches";
+                 <to-event-attribute-value> "FPC PFE resync_done fpc 0";
+             }
+             <then> {
+                 <event-script> {
+                         <name>"disable_sfp_diag.slax";
+                 }
+             }
+         }
+        <policy> {
+             <name> "DAILY_POLICY";
+             <events> "EVERYDAY";
+             <then> {
+                <event-script> {
+                        <name>"disable_sfp_diag.slax";
+                    }
+                }
+           }
+      }
+ }
+
+ var $con = jcs:open();
+
+ match / {
+     <event-script-results>{
+
+  var $set_sfp_diag_interval_rpc = {
+    <request-pfe-execute> {
+      <target> "fpc0";
+      <command> "set parser security 10";
+      <command> "test sfp periodic diagnostic-interval 60";
+    }
+  }
+  var $set_sfp_diag_int := jcs:execute( $con, $set_sfp_diag_interval_rpc );
+
+  var $disable_sfp_diag_rpc = {
+    <request-pfe-execute> {
+      <target> "fpc0";
+      <command> "set parser security 10";
+      <command> "test sfp diagnostics disable";
+    }
+  }
+  var $disable_sfp_diag := jcs:execute( $con, $disable_sfp_diag_rpc );
+
+
+     }
+ }
