@@ -42,7 +42,7 @@ var $SERVER-URL = $SERVER _ "/firmwares";
 /* Location of all Junos files */
 var $JUNOS-URL = $SERVER _ "/images";
 var $PACK-URL = $SERVER _ "/package"; 
-var $INVENTORY-URL = $SERVER _ "/inventory";
+var $INVENTORY-URL = $SERVER _ "/cfg/inventory";
 /* ========================================== */
 
 match / {
