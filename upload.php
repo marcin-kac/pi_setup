@@ -8,9 +8,25 @@ $location = "cfg/".$filename;
 
 /* Permanently save the file upload to the upload folder */
 if ( move_uploaded_file($_FILES['fileToUpload']['tmp_name'], $location) ) {
-  echo '<p>file upload was a success!</p>';
+	echo <<<EOF
+</head>
+<body>
+<h4 class="c3"><span class="c5"><strong>
+file $filename upload was a success</strong></span></h4>
+<a href="index.html"title="Back to Main">Back to Main</a>
+</body>
+</html>
+EOF;
 } else {
-  echo '<p>file upload failed.</p>';
+echo <<<EOF
+</head>
+<body>
+<h4 class="c3"><span class="c5"><strong>
+file $filename upload was a failed</strong></span></h4>
+<a href="index.html"title="Back to Main">Back to Main</a>
+</body>
+</html>
+EOF;
 }
 
 ?>
