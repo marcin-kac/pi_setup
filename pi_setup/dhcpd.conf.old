@@ -1,0 +1,57 @@
+default-lease-time 600;
+max-lease-time 7200;
+#authoritative;
+log-facility local7;
+
+#option serverip code 43 = ip-address;
+set vendor-string = option vendor-class-identifier;
+option ztp-file-server code 150 = { ip-address };
+option ztp-file-server 10.3.14.1;
+option log-servers 10.3.14.1;
+option ntp-servers 10.3.14.1;
+# Juniper vendor option space
+option space juniper;
+option juniper.image-file-name     code 0 = text;
+option juniper.config-file-name    code 1 = text;
+option juniper.image-file-type     code 2 = text;
+option juniper.transfer-mode       code 3 = text;
+option juniper.alt-image-file-name code 4 = text;
+option juniper.http-port           code 5 = text;
+option ztp-ops-encapsulation code 43 = encapsulate Juniper;
+option juniper.config-file-name "junos-configurator.slax";
+
+
+
+class "vqfx-10000" {
+  match if  (option vendor-class-identifier = " vqfx-10000");
+vendor-option-space juniper;
+}
+
+class "ex4300-48p" {
+  match if  (option vendor-class-identifier = "Juniper-ex4300-48p");
+vendor-option-space juniper;
+}
+class "qfx-5100-48" {
+  match if  (option vendor-class-identifier = "Juniper-qfx5100-48s-6q-");
+vendor-option-space juniper;
+}
+class "qfx-5100-96" {
+  match if  (option vendor-class-identifier = " Juniper-qfx5100-96s-6q-");
+vendor-option-space juniper;
+}
+class "ex2300" {
+  match if  (option vendor-class-identifier = " Juniper-ex2300");
+vendor-option-space juniper;
+}
+class "srx1500" {
+  match if  (option vendor-class-identifier = " Juniper-srx1500");
+vendor-option-space juniper;
+}
+# This is a very basic subnet declaration.
+subnet 10.3.14.0 netmask 255.255.255.0 {
+  range 10.3.14.100 10.3.14.200;
+  option domain-name "internal.example.org";
+  option broadcast-address 10.3.14.255;
+  default-lease-time 600;
+  max-lease-time 7200;
+}

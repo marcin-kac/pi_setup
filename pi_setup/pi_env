@@ -1,0 +1,36 @@
+sudo su
+apt-get update --allow-releaseinfo-change
+apt-get upgrade -y
+apt-get install isc-dhcp-server lighttpd xinetd tftpd tftp vim ntp  -y
+apt-get install php7.4-fpm php7.4-mbstring php7.4-mysql php7.4-curl php7.4-gd php7.4-curl php7.4-zip php7.4-xml -y
+lighttpd-enable-mod fastcgi
+lighttpd-enable-mod fastcgi-php
+mkdir /var/www/html/cfg
+mkdir /var/www/html/images
+mkdir /var/www/html/scripts
+cp tftp /etc/xinetd.d/
+cp isc-dhcp-server /etc/default/
+cp interfaces /etc/network/
+cp /etc/dhcp/dhcpd.conf /etc/dhcp/dhcpd.conf.bk
+cp dhcpd.conf /etc/dhcp/dhcpd.conf
+cp delete /var/www/html/
+cp autoinstall_dhcp /var/www/html/
+cp icos_3.4.3.7_4610.stk /var/www/html/
+cp junos-configurator.slax /var/www/html/
+cp firmwares /var/www/html/
+cp  interface-desc-update-lldp.slax /var/www/html/scripts/
+cp  set_trunk_offset.slax /var/www/html/scripts/
+cp  tcam-pct-used.slax /var/www/html/scripts/
+cp  disable_sfp_diag.slax /var/www/html/scripts/
+cp 15-fastcgi-php.conf  /etc/lighttpd/conf-available/15-fastcgi-php.conf
+cp upload.php /var/www/html
+cp index.html /var/www/html
+rm /var/www/html/index.lighttpd.html
+chown -R www-data:www-data /var/www
+ifup eth0
+service isc-dhcp-server restart
+service xinetd restart
+service lighttpd force-reload
+service lighttpd start
+rm interfaces isc-dhcp-server tftp dhcpd.conf *.slax delete firmwares
+sudo reboot

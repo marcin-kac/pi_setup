@@ -1,0 +1,31 @@
+delete: system;
+/***********************************************************
+** Modules used:                                          **
+**  buildinfo_1                                           **
+**  baseline-ex_1                                         **
+**  base-local-user_1                                     **
+**  tacacs_2                                              **
+**  filter-infra-prefix-lists_1                           **
+**  prefixlist-base_1                                     **
+**  copp-acl-ex_1                                         **
+**  policy-base-ex_1                                      **
+**  platform-ex_1                                         **
+**  hostname_1                                            **
+**  interface-ex_1                                        **
+**  loopid-ex_1                                           **
+**  ntp_1                                                 **
+**  snmp_1                                                **
+**  syslog_1                                              **
+**  nameserver_1                                          **
+**  device-independent-config_1                           **
+**  composites_config_1                                   **
+************************************************************/
+system default-address-selection;
+delete: interfaces;
+delete: routing-options;
+delete: protocols;
+delete: policy-options;
+delete: routing-instances;
+delete: firewall;
+delete: vlans;
+

@@ -1,0 +1,5 @@
+paramiko
+argparse
+getpass
+scp 
+pprint
