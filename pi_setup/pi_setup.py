@@ -28,8 +28,8 @@ local_file_list= args.local_file_list
 file = open(local_file_list,"r")
 file_list = file.readlines()
 for local_file in file_list:
-	scp.put(local_file.strip() ,local_file.strip())
-	print('file '+ local_file.strip() + 'copied to server')
+	scp.put(local_file.strip() ,'/tmp/'local_file.strip())
+	print('file '+ local_file.strip() + ' copied to server')
 scp.close()
 
 for com in command:

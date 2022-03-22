@@ -41,7 +41,6 @@ var $HOSTNAME-DONE = "Juniper";
 var $SERVER-URL = $SERVER _ "/firmwares";
 /* Location of all Junos files */
 var $JUNOS-URL = $SERVER _ "/cfg";
-var $PACK-URL = $SERVER _ "/package"; 
 var $INVENTORY-URL = $SERVER _ "/cfg/inventory";
 /* ========================================== */
 
@@ -194,7 +193,7 @@ match / {
 
                  /*
                     Proceed to install the file
-                    Manual command: request system software add http://10.3.14.1/images/jinstall-host-qfx-5e-flex-x86-64-19.1R1.6-secure-signed.tgz
+                    Manual command: request system software add http://10.3.14.1/cfg/jinstall-host-qfx-5e-flex-x86-64-19.1R1.6-secure-signed.tgz
                     SHELL: /usr/libexec/ui/package update -no-validate /var/tmp/jinstall-host-qfx-5e-flex-x86-64-18.4R2.7-secure-signed.tgz
                  */
                  set $message = "Installing file " _ $tmpfile _ " with options: unlink";
