@@ -64,26 +64,7 @@ Server preparation:
 
 10. [Juniper prep] Create inventory file where you assign all devices serial numbers to device names and upload to server using web browser. 
 inventory
-	PD3721350304,fra52-95-co-acc-sw001
-	PD3721350280,fra52-95-co-acc-sw002
-	VB3121280020,fra52-95-co-agg-r1
-	VB3121330098,fra52-95-co-agg-r2
-	VB3121280288,fra52-95-co-cor-r1
-	VB3121280098,fra52-95-co-cor-r2
-	VB3121370050,fra52-95-np-cor-r101
-	VB3120010009,fra52-95-np-cor-r102
-	PD3721350304,fra52-95-co-acc-sw001
-	PD3721350280,fra52-95-co-acc-sw002
-	VB3121280020,fra52-95-co-agg-r1
-	VB3121330098,fra52-95-co-agg-r2
-	VB3121280288,fra52-95-co-cor-r1
-	VB3121280098,fra52-95-co-cor-r2
-	PD3721350281,fra52-95-esoob-con-agg-r1
-	PD3721350282,fra52-95-esoob-con-agg-r2
-	PD3721350283,fra52-95-wsoob-con-agg-r1
-	PD3721350284,fra52-95-wsoob-con-agg-r2
-	PD3721350285,fra52-95-con-cor-r1
-  PD3721350286,fra52-95-con-cor-r2     
+	serial,hostname 
 
 
 
@@ -97,5 +78,5 @@ Deployment:
 	•	each device will pull software according to the hardware and current standards 
 	•	after the install reboot device will pull the configuration file based on its serial number and inventory file set in preparation stage
 	
-	at this stage device is fully configured and can be access via console with neteng/datatech user
+	at this stage device is fully configured and can be access via console with local user
 	The whole process should not take more then 30 minutes from the moment devices are connected to the mobile SwitchBuilder server 
