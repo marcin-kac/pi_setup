@@ -50,13 +50,8 @@ Server preparation:
    python3 pi_setup.py -u {user} -a {IP_ADDRESS} -f pi_file -c pi_env
 
 9 . [Juniper prep] Copy the fallowing to /var/www/html/  
-  •	from your local laptop - configuration and software downloaded after podlauncher prep step
-  
-  •	Generate console network configuration files on network-config-builder and copy them to your local laptop and then to server  (/var/www/html/cfg/)
-  /apollo/env/ConsoleCfgGen/bin/l3v3_config_gen.py generate -C ~/ConsoleSiteDef --model QFX-5100-48S fra52-95-esoob-con-agg-r1 > fra52-95-esoob-con-agg-r1.config
-  sftp network-config-builder
-  cd ConsoleSiteDef
-  get *.config
+ 
+  •	create network configuration files and  copy them to your local laptop and then to server  (/var/www/html/cfg/)
   
   •	open your web browser to IP the same IP as you use to run pi_setup and upload files one by one 
   
