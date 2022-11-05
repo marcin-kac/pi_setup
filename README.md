@@ -19,7 +19,7 @@ Server preparation:
    mwinit -o -s
    
    cd C:\Users\marcinxk
-   git ssh://git.amazon.com/pkg/Project_PiJ
+   git git@github.com:marcin-kac/pi_setup
    cd Project_PiJ/pi_setup
    python -m pip install -r requirements.txt
    
